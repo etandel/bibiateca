@@ -6,8 +6,8 @@ Bibiateca is a **very** simple book library system written in [Django](https://w
 Author
 ---
 
-Bibiateca was created by Elias Tandel Barrionovo. Bug reports, issues or just 
-general cursing contact me at `elias _dot_ tandel _at_ gmail 'dot' com`.
+Bibiateca was created by Elias Tandel Barrionovo. For bug reports, issues or
+just general cursing contact me at `elias _dot_ tandel _at_ gmail _dot_ com`.
 
 License
 ---
