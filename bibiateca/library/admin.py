@@ -12,19 +12,11 @@ class AuthorAdmin(admin.ModelAdmin):
 
 
 class BookAdmin(AjaxSelectAdmin):
-    list_display = ('title', 'author_name', 'edition', 'author_names')
+    list_display = ('title', 'author_names', 'edition',)
 
     search_fields = ('title', 'author__name')
 
-    form = make_ajax_form(Book, {'author': 'author'})
-
-    def author_name(self, obj):
-        return '<a href={url}>{label}</a>'.format(
-            url=reverse('admin:library_author_change', args=(obj.author_id,)),
-            label=obj.author.name
-        )
-    author_name.allow_tags = True
-    author_name.short_description = 'author'
+    form = make_ajax_form(Book, {'authors': 'authors'})
 
     def author_names(self, obj):
         names = []
