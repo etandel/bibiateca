@@ -10,7 +10,6 @@ class Author(models.Model):
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
-    author = models.ForeignKey(Author, related_name='+')
     authors = models.ManyToManyField(Author)
     edition = models.PositiveIntegerField(null=True, blank=True)
 
