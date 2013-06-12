@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     'bibiateca.library',
     'ajax_select',
     'gunicorn',
+    'south',
 )
 
 
