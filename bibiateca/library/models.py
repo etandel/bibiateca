@@ -10,7 +10,7 @@ class Author(models.Model):
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
-    author = models.ForeignKey(Author)
+    authors = models.ManyToManyField(Author)
     edition = models.PositiveIntegerField(null=True, blank=True)
 
     def __unicode__(self):
