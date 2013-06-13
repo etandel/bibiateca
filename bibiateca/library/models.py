@@ -31,6 +31,9 @@ class Series(models.Model):
     def __unicode__(self):
         return self.title
 
+    class Meta(object):
+        verbose_name_plural = 'series'
+
 
 class Comics(models.Model):
     title = models.CharField(max_length=200)
@@ -40,3 +43,7 @@ class Comics(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    class Meta(object):
+        verbose_name = 'comic book'
+        verbose_name_plural = 'comics'
