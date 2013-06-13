@@ -139,6 +139,8 @@ INSTALLED_APPS = (
 AJAX_LOOKUP_CHANNELS = {
     #   pass a dict with the model and the field to search against
     'authors': {'model': 'library.author', 'search_field': 'name'},
+    'publisher': {'model': 'library.publisher', 'search_field': 'name'},
+    'series': {'model': 'library.series', 'search_field': 'title'},
 }
 
 # magically include jqueryUI/js/css
