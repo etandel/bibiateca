@@ -4,7 +4,7 @@ from django.contrib import admin
 from ajax_select import make_ajax_form
 from ajax_select.admin import AjaxSelectAdmin
 
-from bibiateca.library.models import Author, Publisher, Book
+from bibiateca.library.models import Author, Publisher, Book, Series, Comics
 
 
 class AuthorAdmin(admin.ModelAdmin):
@@ -20,7 +20,9 @@ class BookAdmin(AjaxSelectAdmin):
 
     search_fields = ('title', 'author__name')
 
-    form = make_ajax_form(Book, {'authors': 'authors'})
+    form = make_ajax_form(Book,
+                          {'authors': 'authors',
+                           'publisher': 'publisher',})
 
     def author_names(self, obj):
         names = []
@@ -37,7 +39,7 @@ class BookAdmin(AjaxSelectAdmin):
     def publisher_name(self, obj):
         if obj.publisher:
             url = '<a href={url}>{label}</a>'.format(
-                url=reverse('admin:library_obj.publisher_change',
+                url=reverse('admin:library_publisher_change',
                             args=(obj.publisher.id,)),
                 label=obj.publisher.name
             )
@@ -48,6 +50,34 @@ class BookAdmin(AjaxSelectAdmin):
     publisher_name.short_description = 'publisher'
 
 
+class SeriesAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+
+
+class ComicsAdmin(BookAdmin):
+    list_display = ('title', 'series_name', 'publisher_name', 'author_names',)
+
+    form = make_ajax_form(Comics,
+                          {'authors': 'authors',
+                           'publisher': 'publisher',
+                           'series': 'series',})
+
+    def series_name(self, obj):
+        if obj.series:
+            url = '<a href={url}>{label}</a>'.format(
+                url=reverse('admin:library_series_change',
+                            args=(obj.series.id,)),
+                label=obj.series.title
+            )
+        else:
+            url = ''
+        return url
+    series_name.allow_tags = True
+    series_name.short_description = 'series'
+
+
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Publisher, PublisherAdmin)
 admin.site.register(Book, BookAdmin)
+admin.site.register(Series, SeriesAdmin)
+admin.site.register(Comics, ComicsAdmin)
