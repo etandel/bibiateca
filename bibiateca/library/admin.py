@@ -20,7 +20,9 @@ class BookAdmin(AjaxSelectAdmin):
 
     search_fields = ('title', 'author__name')
 
-    form = make_ajax_form(Book, {'authors': 'authors'})
+    form = make_ajax_form(Book,
+                          {'authors': 'authors',
+                           'publisher': 'publisher',})
 
     def author_names(self, obj):
         names = []
@@ -37,7 +39,7 @@ class BookAdmin(AjaxSelectAdmin):
     def publisher_name(self, obj):
         if obj.publisher:
             url = '<a href={url}>{label}</a>'.format(
-                url=reverse('admin:library_obj.publisher_change',
+                url=reverse('admin:library_publisher_change',
                             args=(obj.publisher.id,)),
                 label=obj.publisher.name
             )
@@ -55,14 +57,17 @@ class SeriesAdmin(admin.ModelAdmin):
 class ComicsAdmin(BookAdmin):
     list_display = ('title', 'series_name', 'publisher_name', 'author_names',)
 
-    form = make_ajax_form(Comics, {'authors': 'authors'})
+    form = make_ajax_form(Comics,
+                          {'authors': 'authors',
+                           'publisher': 'publisher',
+                           'series': 'series',})
 
     def series_name(self, obj):
         if obj.series:
             url = '<a href={url}>{label}</a>'.format(
-                url=reverse('admin:library_obj.series_change',
+                url=reverse('admin:library_series_change',
                             args=(obj.series.id,)),
-                label=obj.series.name
+                label=obj.series.title
             )
         else:
             url = ''
